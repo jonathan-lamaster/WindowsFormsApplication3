@@ -43,8 +43,8 @@
             this.AddTestbutton = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.DescriptiontextBox = new System.Windows.Forms.TextBox();
-            this.SaveTestbutton = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.DeleteButton = new System.Windows.Forms.Button();
             this.RunTestButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -122,6 +122,7 @@
             this.dataGridView.Location = new System.Drawing.Point(66, 283);
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.ReadOnly = true;
+            this.dataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView.Size = new System.Drawing.Size(959, 205);
             this.dataGridView.TabIndex = 7;
             // 
@@ -184,20 +185,10 @@
             this.DescriptiontextBox.Size = new System.Drawing.Size(197, 48);
             this.DescriptiontextBox.TabIndex = 10;
             // 
-            // SaveTestbutton
-            // 
-            this.SaveTestbutton.Location = new System.Drawing.Point(394, 28);
-            this.SaveTestbutton.Name = "SaveTestbutton";
-            this.SaveTestbutton.Size = new System.Drawing.Size(83, 38);
-            this.SaveTestbutton.TabIndex = 11;
-            this.SaveTestbutton.Text = "Save";
-            this.SaveTestbutton.UseVisualStyleBackColor = true;
-            this.SaveTestbutton.Click += new System.EventHandler(this.button2_Click);
-            // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.DeleteButton);
             this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.SaveTestbutton);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.DescriptiontextBox);
             this.groupBox1.Controls.Add(this.label4);
@@ -211,6 +202,16 @@
             this.groupBox1.Size = new System.Drawing.Size(492, 214);
             this.groupBox1.TabIndex = 12;
             this.groupBox1.TabStop = false;
+            // 
+            // DeleteButton
+            // 
+            this.DeleteButton.Location = new System.Drawing.Point(393, 28);
+            this.DeleteButton.Name = "DeleteButton";
+            this.DeleteButton.Size = new System.Drawing.Size(83, 38);
+            this.DeleteButton.TabIndex = 12;
+            this.DeleteButton.Text = "Delete";
+            this.DeleteButton.UseVisualStyleBackColor = true;
+            this.DeleteButton.Click += new System.EventHandler(this.DeleteButton_Click);
             // 
             // RunTestButton
             // 
@@ -260,9 +261,9 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn ExpectedOutput;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox DescriptiontextBox;
-        private System.Windows.Forms.Button SaveTestbutton;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button RunTestButton;
+        private System.Windows.Forms.Button DeleteButton;
     }
 }
 

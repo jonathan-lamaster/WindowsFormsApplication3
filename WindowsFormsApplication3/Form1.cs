@@ -18,19 +18,28 @@ namespace WindowsFormsApplication3
         {
             InitializeComponent();
         }
-   
-        private void button1_Click(object sender, EventArgs e)
+
+        private void Form1_Load(object sender, EventArgs e)
         {
-            int n = dataGridView.Rows.Add();
-            dataGridView.Rows[n].Cells[0].Value = TestNametextBox.Text;
-            dataGridView.Rows[n].Cells[1].Value = DescriptiontextBox.Text;
-            dataGridView.Rows[n].Cells[2].Value = InputMessagetextBox.Text;
-            dataGridView.Rows[n].Cells[3].Value = ExpectedOutputtextBox.Text;
+            if (File.Exists("C:\\HL7\\data.xml"))
+            {
+                DataSet ds = new DataSet();
+                ds.ReadXml("C:\\HL7\\data.xml");
+                foreach (DataRow item in ds.Tables["InterfaceTests"].Rows)
+                {
+                    int n = dataGridView.Rows.Add();
+                    dataGridView.Rows[n].Cells[0].Value = item["TestName"].ToString();
+                    dataGridView.Rows[n].Cells[2].Value = item["InputMessage"].ToString();
+                    dataGridView.Rows[n].Cells[3].Value = item["ExpectedOutput"].ToString();
+                    dataGridView.Rows[n].Cells[1].Value = item["Description"].ToString();
+                }
+            }
+
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void SaveData()
         {
-            DataSet ds = new DataSet();
+           DataSet ds = new DataSet();
             DataTable dt = new DataTable();
             dt.TableName = "InterfaceTests";
             dt.Columns.Add("TestName");
@@ -49,25 +58,26 @@ namespace WindowsFormsApplication3
             }
 
             ds.WriteXml("C:\\HL7\\data.xml");
-       
+        }
+ 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            int n = dataGridView.Rows.Add();
+            dataGridView.Rows[n].Cells[0].Value = TestNametextBox.Text;
+            dataGridView.Rows[n].Cells[1].Value = DescriptiontextBox.Text;
+            dataGridView.Rows[n].Cells[2].Value = InputMessagetextBox.Text;
+            dataGridView.Rows[n].Cells[3].Value = ExpectedOutputtextBox.Text;
+
+            SaveData();
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void DeleteButton_Click(object sender, EventArgs e)
         {
-            if (File.Exists("C:\\HL7\\data.xml"))
+            foreach (DataGridViewRow item in this.dataGridView.SelectedRows)
             {
-                DataSet ds = new DataSet();
-                ds.ReadXml("C:\\HL7\\data.xml");
-                foreach (DataRow item in ds.Tables["InterfaceTests"].Rows)
-                {
-                    int n = dataGridView.Rows.Add();
-                    dataGridView.Rows[n].Cells[0].Value = item["TestName"].ToString();
-                    dataGridView.Rows[n].Cells[2].Value = item["InputMessage"].ToString();
-                    dataGridView.Rows[n].Cells[3].Value = item["ExpectedOutput"].ToString();
-                    dataGridView.Rows[n].Cells[1].Value = item["Description"].ToString();
-                }
+                dataGridView.Rows.RemoveAt(item.Index);
             }
-            
+            SaveData();
         }
 
         private void RunTestButton_Click(object sender, EventArgs e)
@@ -76,34 +86,34 @@ namespace WindowsFormsApplication3
 
             foreach (DataGridViewRow item in dataGridView.Rows)
             {
-                    File.WriteAllText(@"C:\\HL7\\Inbox\\message.hl7", item.Cells[2].Value.ToString());
-                    Thread.Sleep(2000);
-                    try
+                File.WriteAllText(@"C:\\HL7\\Inbox\\message.hl7", item.Cells[2].Value.ToString());
+                Thread.Sleep(2000);
+                try
+                {
+                    using (StreamReader sr = new StreamReader("C:\\HL7\\Outbox\\message.hl7"))
                     {
-                        using (StreamReader sr = new StreamReader("C:\\HL7\\Outbox\\message.hl7"))
+                        String line = sr.ReadToEnd();
+                        line = line.TrimEnd('\r', '\n');
+                        if (line.Equals(item.Cells["ExpectedOutput"].Value))
                         {
-                            String line = sr.ReadToEnd();
-                            line = line.TrimEnd('\r', '\n');
-                            if (line.Equals(item.Cells["ExpectedOutput"].Value))
-                            {
-                                MessageBox.Show(String.Format("The {0} test passed ", item.Cells[0].Value));
-                            }
-                            else
-                            {
-                                MessageBox.Show(String.Format("The {0} test failed ", item.Cells[0].Value));
-                            }
-                            sr.Close();
-                            File.Delete("C:\\HL7\\Outbox\\message.hl7");
+                            MessageBox.Show(String.Format("The {0} test passed ", item.Cells[0].Value));
                         }
+                        else
+                        {
+                            MessageBox.Show(String.Format("The {0} test failed ", item.Cells[0].Value));
+                        }
+                        sr.Close();
+                        File.Delete("C:\\HL7\\Outbox\\message.hl7");
                     }
+                }
 
-                    catch (Exception error)
-                    {
-                        MessageBox.Show(error.Message);
-                    }
-                
-                }   
-          }
+                catch (Exception error)
+                {
+                    MessageBox.Show(error.Message);
+                }
+
+            }
+        }
 
         }
 
