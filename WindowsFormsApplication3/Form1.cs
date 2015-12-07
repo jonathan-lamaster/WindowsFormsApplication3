@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using System.Threading;
 
 namespace WindowsFormsApplication3
 {
@@ -47,16 +48,16 @@ namespace WindowsFormsApplication3
                     ds.Tables["InterfaceTests"].Rows.Add(row);
             }
 
-            ds.WriteXml("C:\\Test\\data.xml");
+            ds.WriteXml("C:\\HL7\\data.xml");
        
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            if (File.Exists("C:\\Test\\data.xml"))
+            if (File.Exists("C:\\HL7\\data.xml"))
             {
                 DataSet ds = new DataSet();
-                ds.ReadXml("C:\\Test\\data.xml");
+                ds.ReadXml("C:\\HL7\\data.xml");
                 foreach (DataRow item in ds.Tables["InterfaceTests"].Rows)
                 {
                     int n = dataGridView.Rows.Add();
@@ -75,20 +76,36 @@ namespace WindowsFormsApplication3
 
             foreach (DataGridViewRow item in dataGridView.Rows)
             {
-                File.WriteAllText(@"C:\\Test\message.hl7", item.Cells[2].Value.ToString());
-                MessageBox.Show("File Written. Please Wait...");
-            }
-            //    if (item.Cells[2].Value.Equals(item.Cells[3].Value))
-            //    {
-            //        MessageBox.Show(String.Format("The {0} test passed ", item.Cells[0].Value));
-            //    }
-            //    else
-            //    {
-            //        MessageBox.Show(String.Format("The {0} test failed ", item.Cells[0].Value));
-            //    }
-            //}
-   
+                    File.WriteAllText(@"C:\\HL7\\Inbox\\message.hl7", item.Cells[2].Value.ToString());
+                    Thread.Sleep(2000);
+                    try
+                    {
+                        using (StreamReader sr = new StreamReader("C:\\HL7\\Outbox\\message.hl7"))
+                        {
+                            String line = sr.ReadToEnd();
+                            line = line.TrimEnd('\r', '\n');
+                            if (line.Equals(item.Cells["ExpectedOutput"].Value))
+                            {
+                                MessageBox.Show(String.Format("The {0} test passed ", item.Cells[0].Value));
+                            }
+                            else
+                            {
+                                MessageBox.Show(String.Format("The {0} test failed ", item.Cells[0].Value));
+                            }
+                            sr.Close();
+                            File.Delete("C:\\HL7\\Outbox\\message.hl7");
+                        }
+                    }
+
+                    catch (Exception error)
+                    {
+                        MessageBox.Show(error.Message);
+                    }
+                
+                }   
+          }
+
         }
 
     }
-}
+
