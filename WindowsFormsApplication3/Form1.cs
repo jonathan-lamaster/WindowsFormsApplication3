@@ -67,6 +67,7 @@ namespace WindowsFormsApplication3
             dataGridView.Rows[n].Cells[1].Value = DescriptiontextBox.Text;
             dataGridView.Rows[n].Cells[2].Value = InputMessagetextBox.Text;
             dataGridView.Rows[n].Cells[3].Value = ExpectedOutputtextBox.Text;
+          
 
             SaveData();
         }
@@ -96,11 +97,12 @@ namespace WindowsFormsApplication3
                         line = line.TrimEnd('\r', '\n');
                         if (line.Equals(item.Cells["ExpectedOutput"].Value))
                         {
-                            MessageBox.Show(String.Format("The {0} test passed ", item.Cells[0].Value));
+                             item.Cells[4].Value = Properties.Resources.Green;
+
                         }
                         else
                         {
-                            MessageBox.Show(String.Format("The {0} test failed ", item.Cells[0].Value));
+                            item.Cells[4].Value = Properties.Resources.Red;
                         }
                         sr.Close();
                         File.Delete("C:\\HL7\\Outbox\\message.hl7");

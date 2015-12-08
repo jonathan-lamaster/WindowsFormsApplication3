@@ -36,16 +36,17 @@
             this.InputMessagetextBox = new System.Windows.Forms.TextBox();
             this.ExpectedOutputtextBox = new System.Windows.Forms.TextBox();
             this.dataGridView = new System.Windows.Forms.DataGridView();
-            this.TestName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.InputMessage = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ExpectedOutput = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.AddTestbutton = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.DescriptiontextBox = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.DeleteButton = new System.Windows.Forms.Button();
             this.RunTestButton = new System.Windows.Forms.Button();
+            this.TestName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.InputMessage = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ExpectedOutput = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Status = new System.Windows.Forms.DataGridViewImageColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -118,45 +119,14 @@
             this.TestName,
             this.Description,
             this.InputMessage,
-            this.ExpectedOutput});
+            this.ExpectedOutput,
+            this.Status});
             this.dataGridView.Location = new System.Drawing.Point(66, 283);
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.ReadOnly = true;
             this.dataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView.Size = new System.Drawing.Size(959, 205);
             this.dataGridView.TabIndex = 7;
-            // 
-            // TestName
-            // 
-            this.TestName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.TestName.FillWeight = 33.3F;
-            this.TestName.HeaderText = "Test Name";
-            this.TestName.Name = "TestName";
-            this.TestName.ReadOnly = true;
-            this.TestName.Width = 150;
-            // 
-            // Description
-            // 
-            this.Description.HeaderText = "Description";
-            this.Description.Name = "Description";
-            this.Description.ReadOnly = true;
-            // 
-            // InputMessage
-            // 
-            this.InputMessage.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.InputMessage.FillWeight = 11.76471F;
-            this.InputMessage.HeaderText = "Input Message";
-            this.InputMessage.Name = "InputMessage";
-            this.InputMessage.ReadOnly = true;
-            this.InputMessage.Width = 225;
-            // 
-            // ExpectedOutput
-            // 
-            this.ExpectedOutput.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.ExpectedOutput.HeaderText = "Expected Output";
-            this.ExpectedOutput.Name = "ExpectedOutput";
-            this.ExpectedOutput.ReadOnly = true;
-            this.ExpectedOutput.Width = 225;
             // 
             // AddTestbutton
             // 
@@ -223,6 +193,44 @@
             this.RunTestButton.UseVisualStyleBackColor = true;
             this.RunTestButton.Click += new System.EventHandler(this.RunTestButton_Click);
             // 
+            // TestName
+            // 
+            this.TestName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.TestName.FillWeight = 33.3F;
+            this.TestName.HeaderText = "Test Name";
+            this.TestName.Name = "TestName";
+            this.TestName.ReadOnly = true;
+            this.TestName.Width = 150;
+            // 
+            // Description
+            // 
+            this.Description.HeaderText = "Description";
+            this.Description.Name = "Description";
+            this.Description.ReadOnly = true;
+            // 
+            // InputMessage
+            // 
+            this.InputMessage.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.InputMessage.FillWeight = 11.76471F;
+            this.InputMessage.HeaderText = "Input Message";
+            this.InputMessage.Name = "InputMessage";
+            this.InputMessage.ReadOnly = true;
+            this.InputMessage.Width = 225;
+            // 
+            // ExpectedOutput
+            // 
+            this.ExpectedOutput.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.ExpectedOutput.HeaderText = "Expected Output";
+            this.ExpectedOutput.Name = "ExpectedOutput";
+            this.ExpectedOutput.ReadOnly = true;
+            this.ExpectedOutput.Width = 225;
+            // 
+            // Status
+            // 
+            this.Status.HeaderText = "Status";
+            this.Status.Name = "Status";
+            this.Status.ReadOnly = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -255,15 +263,16 @@
         private System.Windows.Forms.TextBox ExpectedOutputtextBox;
         private System.Windows.Forms.DataGridView dataGridView;
         private System.Windows.Forms.Button AddTestbutton;
-        private System.Windows.Forms.DataGridViewTextBoxColumn TestName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Description;
-        private System.Windows.Forms.DataGridViewTextBoxColumn InputMessage;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ExpectedOutput;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox DescriptiontextBox;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button RunTestButton;
         private System.Windows.Forms.Button DeleteButton;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TestName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Description;
+        private System.Windows.Forms.DataGridViewTextBoxColumn InputMessage;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ExpectedOutput;
+        private System.Windows.Forms.DataGridViewImageColumn Status;
     }
 }
 
