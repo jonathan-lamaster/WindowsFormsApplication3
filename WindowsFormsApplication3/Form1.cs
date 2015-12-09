@@ -46,6 +46,7 @@ namespace WindowsFormsApplication3
             dt.Columns.Add("TestName");
             dt.Columns.Add("InputMessage");
             dt.Columns.Add("ExpectedOutput");
+
             dt.Columns.Add("Description");
             ds.Tables.Add(dt);
 
@@ -61,7 +62,7 @@ namespace WindowsFormsApplication3
             ds.WriteXml("C:\\HL7\\data.xml");
         }
  
-        private void button1_Click(object sender, EventArgs e)
+        private void AddTestButton_Click(object sender, EventArgs e)
         {
             int n = dataGridView.Rows.Add();
             dataGridView.Rows[n].Cells[0].Value = TestNametextBox.Text;
