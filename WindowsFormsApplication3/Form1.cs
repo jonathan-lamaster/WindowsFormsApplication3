@@ -21,6 +21,8 @@ namespace WindowsFormsApplication3
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            string path = @"C:\HL7";
+            Directory.CreateDirectory(path);
             if (File.Exists("C:\\HL7\\data.xml"))
             {
                 DataSet ds = new DataSet();
@@ -34,7 +36,6 @@ namespace WindowsFormsApplication3
                     dataGridView.Rows[n].Cells[1].Value = item["Description"].ToString();
                 }
             }
-
         }
 
         private void SaveData()
